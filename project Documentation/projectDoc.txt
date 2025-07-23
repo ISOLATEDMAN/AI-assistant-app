@@ -1,0 +1,144 @@
+# Comprehensive Project Documentation: AI Sales Chatbot
+
+**Version:** 1.0.0
+**Last Updated:** July 24, 2025
+
+---
+
+## 1. Project Overview
+
+This document provides a complete technical overview of the AI-Powered Conversational Sales Chatbot application, including its architecture, features, setup, API, and code structure for both the backend and frontend components.
+
+The primary goal of the application is for the AI assistant, "Martin," to engage a potential lead, qualify them, handle objections, and ultimately book a product demo for the fictional "LeadMate CRM" software.
+
+### 1.1. Core Features
+
+-   **AI-Powered Conversation**: Leverages the Google Gemini API for natural and context-aware dialogue.
+-   **Structured Sales Flow**: The AI is prompted to follow a standard sales process (Introduction -> Qualification -> Objection Handling -> Closing).
+-   **Automated Meeting Scheduling**: The backend can parse specially formatted text from the AI to automatically create meeting objects.
+-   **Full-Stack Architecture**: A clear separation of concerns between the Flutter frontend and the Node.js backend.
+-   **RESTful API**: A well-defined API for communication between the client and server.
+
+---
+
+## 2. Technology Stack
+
+| Component | Technology                                                                                                                                                                                          |
+| :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend** | [**Flutter**](https://flutter.dev/): A cross-platform UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.                                     |
+| **Backend** | [**Node.js**](https://nodejs.org/): A JavaScript runtime for building server-side applications.                                                                                                    |
+| **Framework** | [**Express.js**](https://expressjs.com/): A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.                         |
+| **AI Model** | [**Google Gemini**](https://deepmind.google/technologies/gemini/): A family of powerful, multimodal large language models used to power the conversational AI.                                         |
+
+---
+
+## 3. System Architecture
+
+The application employs a standard client-server model.
+
+1.  **Client (Flutter App)**: The user interacts with the Flutter application. It manages the UI state, sends user messages to the backend, and displays the AI's responses.
+2.  **Server (Node.js Backend)**:
+    * Receives HTTP requests from the client.
+    * Constructs a payload, including the conversation history and a system prompt, and sends it to the Google Gemini API.
+    * Receives the raw text response from the Gemini API.
+    * Processes the response to check for special commands (e.g., meeting scheduling).
+    * Performs actions based on commands (e.g., creating a meeting object).
+    * Sends a formatted response back to the client.
+
+---
+
+## 4. Backend Documentation (`/backend`)
+
+The backend is the core engine of the chatbot.
+
+### 4.1. File Structure
+
+-   `node_modules/`: Contains all installed npm packages.
+-   `.env`: Stores environment variables, primarily the `GEMINI_API_KEY`.
+-   `index.js`: The main application file. It initializes the Express server, defines API endpoints, and contains all the core logic for interacting with the Gemini API.
+-   `package.json`: Defines project metadata and lists dependencies.
+-   `package-lock.json`: Records the exact versions of dependencies.
+
+### 4.2. API Endpoints
+
+The server exposes a RESTful API on `http://localhost:3000`.
+
+#### `POST /chat`
+
+The primary endpoint for conversational interactions.
+
+-   **Description**: Sends a user message and conversation history to the AI and receives a processed response.
+-   **Request Body**:
+    ```json
+    {
+      "message": "string",
+      "history": [
+        { "role": "user", "content": "string" },
+        { "role": "assistant", "content": "string" }
+      ]
+    }
+    ```
+-   **Success Response (200 OK)**:
+    ```json
+    {
+      "message": "The AI's response text.",
+      "meeting": {
+        "id": "uuid-string",
+        "meetingLink": "[https://meet.leadmate.com/join/](https://meet.leadmate.com/join/)...",
+        "calendarLink": "[https://calendar.google.com/](https://calendar.google.com/)...",
+        "scheduledFor": "Date and Time string",
+        "meetingType": "Demo/Call"
+      }
+    }
+    ```
+    *Note: The `meeting` object is only present if a meeting was successfully scheduled during that turn.*
+
+---
+
+## 5. Frontend Documentation (`/ass_app`)
+
+The frontend is a Flutter application responsible for the user interface and experience.
+
+### 5.1. Detailed File Structure
+
+-   `main.dart`: The entry point of the Flutter application.
+-   **`/constants`**:
+    -   `ColorConstants.dart`: Defines the app's color palette.
+-   **`/core`**:
+    -   `ParticularBg.dart`: Custom widget for the animated particle background.
+-   **`/models`**:
+    -   `chatmessage.dart`: Defines the `ChatMessage` class.
+    -   `meetingInfo.dart`: Defines the `MeetingInfo` class for scheduled meeting data.
+    -   `particule.dart`: Model for the particle animation.
+-   **`/screens`**:
+    -   `ChatScreen.dart`: The main chat UI screen.
+-   **`/services`**:
+    -   `ChatService.dart`: Handles all HTTP communication with the backend.
+-   **`/widgets`**:
+    -   `buildInputArea.dart`: The text input field and send button.
+    -   `messbubble.dart`: A single chat message bubble.
+    -   `meetingcard.dart`: A special card to display scheduled meeting details.
+    -   `typeInd.dart`: The "is typing..." indicator.
+
+---
+
+## 6. Setup and Deployment
+
+### 6.1. Local Setup
+
+Instructions for setting up the project locally are detailed in the `README.md` file. This involves setting up the backend with an `.env` file and running `npm install` & `npm start`, followed by setting up the Flutter app with `flutter pub get` & `flutter run`.
+
+### 6.2. Deployment
+
+-   **Backend**: The Node.js application can be deployed to any platform that supports Node, such as Render or Heroku.
+-   **Frontend**: The Flutter app can be built for web (`flutter build web`) and deployed to a static hosting service like Vercel or Netlify, or built for mobile platforms.
+
+---
+
+## 7. Future Roadmap
+
+-   **Persistent Storage**: Replace the in-memory meeting storage with a database like PostgreSQL, MongoDB, or Firebase.
+-   **User Authentication**: Implement a user login system to maintain separate conversation histories.
+-   **WebSocket Integration**: Convert the chat from HTTP to WebSockets for more efficient, real-time communication.
+-   **Comprehensive Testing**: Write unit, widget, and integration tests for both the frontend and backend.
+
