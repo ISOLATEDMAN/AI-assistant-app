@@ -17,7 +17,6 @@ if (!process.env.GEMINI_API_KEY) {
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// In-memory storage for meetings (in production, use a database)
 const meetings = new Map();
 
 const systemPrompt = `You are Martin, an experienced B2B sales executive at LeadMate CRM. You're conducting an outbound sales call via chat to help businesses understand the value of our advanced CRM solution.
@@ -233,10 +232,9 @@ app.post('/chat', async (req, res) => {
         meetingType: meeting.meetingType || 'Demo'
       };
 
-      // Remove the meeting request tags from the response
+
       text = text.replace(/\[SCHEDULE_MEETING\][\s\S]*?\[\/SCHEDULE_MEETING\]/g, '').trim();
-      
-      // Add confirmation message
+
       text += `\n\n✅ Perfect! I've scheduled your ${meetingInfo.meetingType.toLowerCase()} for ${meetingInfo.scheduledFor}. 
       
 📅 **Meeting Details:**
