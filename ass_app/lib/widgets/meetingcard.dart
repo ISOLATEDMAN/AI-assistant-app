@@ -11,12 +11,12 @@ class MeetingCard extends StatelessWidget {
   final VoidCallback onClose;
 
   const MeetingCard({
-    Key? key,
+    super.key,
     required this.meeting,
     required this.onJoin,
     required this.onAddToCalendar,
     required this.onClose,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

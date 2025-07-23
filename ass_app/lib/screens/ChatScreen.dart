@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({super.key});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();

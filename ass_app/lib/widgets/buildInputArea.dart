@@ -8,13 +8,13 @@ class ChatInputArea extends StatelessWidget {
   final Animation<double> sendButtonScaleAnimation;
 
   const ChatInputArea({
-    Key? key,
+    super.key,
     required this.controller,
     required this.isLoading,
     required this.isConnected,
     required this.onSend,
     required this.sendButtonScaleAnimation,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

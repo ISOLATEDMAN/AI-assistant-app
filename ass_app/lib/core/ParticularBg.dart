@@ -7,10 +7,10 @@ class ParticleBackground extends StatelessWidget {
   final AnimationController particleController;
 
   const ParticleBackground({
-    Key? key,
+    super.key,
     required this.particles,
     required this.particleController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

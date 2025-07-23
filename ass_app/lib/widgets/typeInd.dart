@@ -4,7 +4,7 @@ import 'dart:math' as math;
 class TypingIndicator extends StatelessWidget {
   final AnimationController controller;
 
-  const TypingIndicator({Key? key, required this.controller}) : super(key: key);
+  const TypingIndicator({super.key, required this.controller});
 
   Widget _buildDot(int index) {
     final delay = index * 0.2;
