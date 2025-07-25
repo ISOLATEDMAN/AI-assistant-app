@@ -37,6 +37,7 @@ dependencies:
   dio: ^5.8.0+1
   url_launcher: ^6.3.2
   http: ^1.4.0
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:

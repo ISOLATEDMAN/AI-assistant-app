@@ -1,22 +1,22 @@
 import 'package:ass_app/constants/ColorConstants.dart';
 import 'package:ass_app/screens/ChatScreen.dart';
+import 'package:ass_app/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-       theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.AppMainBgTheme,
-
-      ),
-      home: ChatScreen(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          home: Homescreen(),
+        );
+      },
     );
   }
 }

@@ -115,7 +115,7 @@ class ChatResponse {
 // --- Refactored ChatService with Dio ---
 
 class ChatService {
-  static const String _baseUrl = 'http://localhost:3000';
+  static const String _baseUrl = 'https://ai-assistant-backend-eta.vercel.app';
   late final Dio _dio;
 
   ChatService() {
