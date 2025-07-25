@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class ShopService {
   final Dio _dio = Dio();
-  final String _baseUrl = 'http://localhost:3000';
+  final String _baseUrl = 'https://ai-assistant-backend-eta.vercel.app';
 
   Future<List<ProductModel>> getProducts() async {
     try {
